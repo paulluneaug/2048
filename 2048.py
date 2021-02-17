@@ -7,9 +7,8 @@ def play2048():
     """
     global dim,c,can,fen
 
-    dim=5 #désigne le nombre de cases en hauteur et en largeur du plateau
-    liste_c=[80,100,150,200]
-    c=500//dim #définit la taille en pixels de chaque case
+    dim=4 #désigne le nombre de cases en hauteur et en largeur du plateau
+    c=600//dim #définit la taille en pixels de chaque case
     width=c*dim #désigne la taille en pixels de la fenêtre du jeu
     height=width
 
@@ -34,7 +33,7 @@ def init():
                   #une case vide et un entier naturel pour tou autre case
     for x in range(dim):
         for y in range(dim):
-            dict_state[x,y]=0
+            dict_state={(0, 0): 0, (0, 1): 0, (0, 2): 6, (0, 3): 5, (1, 0): 3, (1, 1): 4, (1, 2): 7, (1, 3): 6, (2, 0): 2, (2, 1): 5, (2, 2): 1, (2, 3): 4, (3, 0):1, (3, 1): 8, (3, 2): 0, (3, 3):10}
 
     fen.bind('<Up>',up)
     fen.bind('<Right>',right)
@@ -53,10 +52,10 @@ def next_move():
 
     if len(list_blank)!=0:
         #Ajoute une case 2 ou 4 sur la grille si une case est libre
-        if randprob(0.1):
+        if randprob(0):
             add=2
         else:
-            add=1
+            add=3
         dict_state[list_blank[randint(0,len(list_blank)-1)]]=add
         can_maj()
     else:
@@ -65,6 +64,7 @@ def next_move():
         can.create_text(c*dim/2,c*dim/2,text='Perdu',font='Verdana 80')
         for key in ['<Up>','<Right>','<Down>','<Left>']:
             fen.unbind(key)
+    print(dict_state)
 
 def down(event):
     """
